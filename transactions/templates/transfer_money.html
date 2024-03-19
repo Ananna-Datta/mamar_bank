@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Login{% endblock title %}
+
+{% block content %}
+
+<div class="container bg-black p-10">
+    <h1 style="text-align: center; color: white;">This is send money page</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        <!-- if unauthorize user try for login show a error message -->
+        {% if form.non_field_errors %}
+        {% for er in form.non_field_errors %}
+            <p class="bg-danger text-white p-3">{{er}}</p>
+        {% endfor %}
+        {% endif %}
+
+        <!-- show login page -->
+        <!-- {{form | crispy}} -->
+        <div style="text-align: center;">
+        {% for fm in form %}
+            <p style="color: white;"> {{fm.label_tag}}</p>
+            {{fm}}
+            <p class="text-danger">{{fm.errors | striptags}}</p>
+            <br>
+            {% endfor %}
+            <br>
+            <button type="submit" class="text-white bg-gradient-to-br from-pink-500 to-orange-400 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-pink-200 dark:focus:ring-pink-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2">Submit</button>
+        </div>
+    </form>
+
+</div>
+
+
+{% endblock content %}
